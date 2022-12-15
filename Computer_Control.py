@@ -1,0 +1,89 @@
+import time
+class Computer():
+    def __int__(self,pc_mode = "Off",pc_volume = 0,screen_brightness = 100,application_list = ["Bilgisayarım","Çöp Kutusu","Internet Explorer"],application = "Bilgisayarım"):
+        self.pc_mode = pc_mode
+        self.pc_volume = pc_volume
+        self.screen_brightness = screen_brightness
+        self.application_list = application_list
+        self.application = application
+    def Switch_on_PC (self):
+        if self.pc_mode == "Running":
+            print("Computer is already running")
+        else:
+            print("Computer is running now")
+            self.pc_mode = "Running"
+    def Switch_off_PC (self):
+        if self.pc_mode == "Off":
+            print("Computer is already off")
+        else:
+            print("Shutting down")
+            self.pc_mode = "Off"
+    def Volume_Settings(self):
+        while True:
+            control = input("Turn down: '-'\nTurn up: '+'\nExit: 'Q'")
+            if control == "-":
+                if self.pc_volume != 0:
+                    self.pc_volume -= 5
+                print("Volume:",self.pc_volume)
+            elif control == "+":
+                if self.pc_volume != 100:
+                    self.pc_volume += 5
+                print("Volume:",self.pc_volume)
+            elif control == "q":
+                print("Switch off volume settings")
+            else:
+                print("Volume Level Has Been Updated: ",self.pc_volume)
+                break
+    def display_settings(self):
+        control = input("Turn Down Brightness: '-'\nTurn Up Brightnesss: '+'\nExit: 'Q'")
+        if control == "-":
+            if self.screen_brightness != 0:
+                self.screen_brightness -= 5
+            print("Brightness:",self.screen_brightness)
+        elif control == "+":
+            if self.screen_brightness != 100:
+                self.screen_brightness += 5
+            print("Brightness:",self.screen_brightness)
+        elif control == "Q" or "q":
+            print("Quitting to brightness settings")
+        else:
+            print("Brightness level has been updated:",self.screen_brightness)
+    def install_application(self,add_applications):
+        print ("Applications are installing...",add_applications)
+        time.sleep(1)
+        self.application_list.append(add_applications)
+        print("Applications installed succesfully")
+    def __str__(self):
+        print("PC MODE: {}\nVOLUME: {}\nDISPLAY SETTINGS: {}\nAPPLICATION LISTS: {}\nAPPLICATION: {}\n".format(self.pc_mode,self.pc_volume,self.screen_brightness,self.application_list,self.application))
+    def __len__(self):
+        return len(self.application_list)
+pc = Computer()
+print("""
+    1- Turn on PC
+    2- Turn off PC
+    3- Volume Settings
+    4- Install Applications
+    5- Show how many applications you have
+    6- INFO
+    """)
+while True:
+    command = input("Please choose one of section what you want:")
+    if command == "q":
+        break
+    elif command == "1":
+        pc.Switch_on_PC()
+    elif command == "2":
+        pc.Switch_off_PC()
+    elif command == "3":
+        pc.Volume_Settings()
+    elif command == "4":
+        application_names = input("Please write application names what you want to install. Do not forget to put ',' between apps names: ")
+        install_application = application_names.split(",")
+        for installing in install_application:
+            pc.install_application(installing)
+    elif command == "5":
+        print("Applications:",len(pc))
+    elif command == "6":
+        print(pc)
+    else:
+        print("Invalid Command")
